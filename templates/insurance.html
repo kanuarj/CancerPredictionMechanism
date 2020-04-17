@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark text-white">Cancer Prediction</nav>
+    <div class="jumbotron">
+        {% if i %}
+            <div class="alert alert-info">The insurance that you can get is {{i|join(' ')}}</div>
+            <form action="/reverts" method="post" class="form-group">
+                <button class="btn btn-primary" type="submit" name="submit" value="try">Try Again</button>
+                <button class="btn btn-danger" type="submit" name="submit" value="home">Home</button>
+            </form>
+        {% endif %}
+        <h3>Check the type of Cancer</h3>
+        <form action="/insurances" method="post" class="form-group">
+            <label>Age :</label><input type="number" name="age" class="form-control" required>
+            <label>Income Per Month : </label><input type="number" name="incomepm" step="0.01" class="form-control" required>
+            <label>Stage of Cancer : </label>
+            <select class="form-control" name="cancerstages">
+                <option value="one">1</option>
+                <option value="two">2</option>
+            </select><br>
+            <label>Tobacco Consumption : </label>
+            <div class="radio">
+                Yes <input type="radio" name="smoking" value="yes" required>
+                No <input type="radio" name="smoking" value="no" required>
+            </div><br>
+            
+            <button type="submit" class="btn btn-primary btn-block" name="submit">Submit</button>
+
+        </form>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark text-white">Cancer Prediction</nav>
+    <div class="jumbotron">
+        {% if b %}
+            <div class="alert alert-success">{{b}}</div>
+        {% endif %}
+        {% if m %}
+            <div class="alert alert-danger">{{m}}</div>
+            <form class="form-group" action="/insurance" method="POST">
+                <button class="btn btn-primary" type="submit" name="submit" value="claim">Claim Insurance</button>
+                <button class="btn btn-danger" type="submit" name="submit" value="no">Go Back</button>
+            </form>
+        {% endif %}
+        <h3 >Check the type of Cancer</h3>
+        <form action="/stages" method="post" class="form-group">
+            <label>Clump Thickness :</label><input type="number" name="ClumpThickness" step="0.01" class="form-control">
+            <label>Uniformity of Cellsize : </label><input type="number" name="UniformityofCellSize" step="0.01" class="form-control">
+            <label>Uniformity Cell Shape : </label><input type="number" name="UniformityCellShape" step=".01" class="form-control">
+            <label>Maginal Adhesion : </label><input type="number" name="MarginalAdhesion" step="0.01" class="form-control">
+            <label>Single Epithelial Cell Size : </label><input type="number" name="SingleEpithelialCellSize" step="0.01" class="form-control">
+            <label>Bare Nuclei : </label><input type="number" name="BareNuclei" step="0.01" class="form-control">
+            <label>Bland Chromatin : </label><input type="number" name="BlandChromatin" step="0.01" class="form-control">
+            <label>Normal Nucleoli : </label><input type="number" name="NormalNucleoli" step="0.01" class="form-control">
+            <label>Mitoses : </label><input type="number" name="Mitoses" step=".01" class="form-control"><br>
+            <button type="submit" class="btn btn-primary btn-block" name="submit">Submit</button>
+
+          </form>
+
+        
+    </div>
+</body>
+
+</html>

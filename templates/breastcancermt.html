@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial;
+  color: white;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  background-color: #111;
+}
+
+.right {
+  right: 0;
+  background-image: url({{url_for('static', filename='images/gif3.gif')}});
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+form{
+  font-size: 12px;
+  text-align: left;
+}
+
+</style>
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    
+
+<div class="split left">
+  <div class="centered"> 
+{% if b %}
+<div class="alert alert-success">
+    {{b}}
+</div>
+{% endif %}
+
+{% if m %}
+<div class="alert alert-success">
+    {{m}}
+</div>
+{% endif %}
+
+    <div style="border-radius:5px;padding: 10px; background-color: #f2f2f2;">
+          <h3 >ENTER THE VALUES</h3>
+          <form action="/breastcancermt" method="post">
+            CLUMP THICKNESS: <input type="number" name="ClumpThickness" step="0.01" class="valinput" style="margin: 0px 39px;"><br>
+            UNIFORMITY OF CELLSIZE: <input type="number" name="UniformityofCellSize" step="0.01" class="valinput" style="margin: 2px 7px;"><br>
+            MAGINAL ADHESION:<input type="number" name="MarginalAdhesion" step="0.01" class="valinput" style="margin: 2px 37px;"><br>
+            SINGLE EPITHELIAL CELL SIZE: <input type="number" name="SingleEpithelialCellSize" step="0.01" class="valinput" style="margin: 2px 0px;"><br>
+            BARE NUCLEI: <input type="number" name="BareNuclei" step="0.01" class="valinput" style="margin: 2px 56px;"><br>
+            BLAND CHROMATIN: <input type="number" name="BlandChromatin" step="0.01" class="valinput" style="margin: 2px 25px;"><br>
+            NORMAL NUCLEOLI: <input type="number" name="NormalNucleoli" step="0.01" class="valinput" style="margin: 2px 25px;"><br><br>
+            <button type="submit" class="valbutton" style="width: 100%; height: 40px; font-size: 12px;"><p class="valspan">Predict</p></button>
+
+          </form>
+    </div>
+  </div>
+</div>
+
+<div class="split right">   
+  
+</div>
+     
+</body>
+</html> 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark text-white">Cancer Prediction</nav>
+    <div class="jumbotron">
+        {% if p %}
+            <div class="alert alert-danger">{{p}}</div><br>
+            <form class="form-group" action="/stage" method="POST">
+                <button class="btn btn-primary" type="submit">Check the stage of Cancer</button>
+            </form>
+        {% endif %}
+        {% if f %}
+            <div class="alert alert-success">{{f}}</div>
+        {% endif %}
+        <h3>Predict if you're suffering from Breast Cancer.</h3><br>
+        <form class="form-group" action="/" method="POST">
+            <label for="age">Age :</label> <input type="number" name="age" class="form-control"><br>
+            <label for="bmi">BMI : </label><input type="number" step=".01" name="bmi" class="form-control"><br>
+            <label>Glucose :</label><input type="number" name="glucose" class="form-control"><br>
+            <label>Insulin : </label><input type="number" name="insulin" class="form-control"><br>
+            <label>HOMA : </label><input type="number" step=".01" name="homa" class="form-control"><br>
+            <label>Leptin : </label><input type="number" step=".01" name="leptin" class="form-control"><br>
+            <label>Adiponectin :</label><input type="number" step=".01" name="adiponectin" class="form-control"><br>
+            <label>Resistin :</label><input type="number" step=".01" name="resistin" class="form-control"><br>
+            <label>MCP.1 : </label><input type="number" step=".01" name="mcp" class="form-control"><br><br>
+            <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>    
+</body>
+</html>

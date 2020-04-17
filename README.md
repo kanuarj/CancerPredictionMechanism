@@ -1,1 +1,1 @@
-# CancerPredictionMechanism
+# CancerPredictor
