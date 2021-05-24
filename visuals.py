@@ -29,7 +29,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd 
-df = pd.read_csv('breast-cancer-wisconsin.csv')
+df = pd.read_csv('datasets/breast-cancer-wisconsin.csv')
 sns.set(style="dark")
 # rs = np.random.RandomState(50)
 benign = df[' Class'] == 2

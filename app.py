@@ -1,50 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
-from sklearn.preprocessing import MinMaxScaler
-# from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
-import pandas as pd
-breast_cancer_detection = pd.read_csv('dataR2.csv')
-X = breast_cancer_detection[['Age', 'BMI', 'Glucose', 'Insulin',
-        'HOMA','Leptin', 'Adiponectin', 'Resistin', 'MCP.1']]
-y = breast_cancer_detection['Classification']
-scaler = MinMaxScaler()
-scaler.fit(X)
-scaler.transform(X)
-model = SVC()
-model.fit(X, y)
-# print(model.score(X, y))
-cancer_stage = pd.read_csv('breast-cancer-wisconsin.csv')
-cancer_stage_X = cancer_stage[['ClumpThickness', ' UniformityofCellSize', 'UniformityCellShape',
-       'MarginalAdhesion', 'SingleEpithelialCellSize', 'BareNuclei',
-       'BlandChromatin', 'NormalNucleoli', 'Mitoses']]
-cancer_stage_y = cancer_stage[' Class']
-from sklearn.tree import DecisionTreeClassifier
-dtc = DecisionTreeClassifier()
-dtc.fit(cancer_stage_X, cancer_stage_y)
-from sklearn.ensemble import RandomForestRegressor
-insurance_data = pd.read_csv('policy.csv')
-insurance_data_X = insurance_data[['age', 'incomepm', 'cancerstages', 'Smoking']]
-insurance_data_y = insurance_data['insurance']
-rfr = RandomForestRegressor()
-rfr.fit(insurance_data_X, insurance_data_y)
+from joblib import load
+import numpy as np
+model = load('models/cancer_classification.joblib')
+dtc = load('models/cancer_stage.joblib')
+rfr = load('models/insurance_claiming.joblib')
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def barebones():
     if request.method == 'POST':
-        age = request.form['age']
-        bmi = request.form['bmi']
-        glucose = request.form['glucose']
-        insulin = request.form['insulin']
-        homa = request.form['homa']
-        leptin = request.form['leptin']
-        adiponectin = request.form['adiponectin']
-        resistin = request.form['resistin']
-        mcp = request.form['mcp']
-        y_pred = [[age, bmi, glucose, insulin,
-                   homa, leptin, adiponectin, resistin, mcp]]
-        y_pred = scaler.transform(y_pred)
+        X_values = [float(x) for x in request.form.values()]
+        y_pred = [np.array(X_values)]
         preds = model.predict(y_pred)
         free = "You're free from becoming a pray of cancer. God bless!"
         pray = "Sorry. You're a victim of cancer."
@@ -52,8 +19,6 @@ def barebones():
             return render_template('index.html', p=pray)
         elif preds == 1:
             return render_template('index.html', f=free)
-
-
     return render_template('index.html')
 
 
@@ -66,18 +31,8 @@ def stage():
 @app.route('/stages', methods=['GET', 'POST'])
 def stages():
     if request.method == 'POST':
-        ClumpThickness = request.form['ClumpThickness']
-        UniformityofCellSize = request.form['UniformityofCellSize']
-        UniformityCellShape = request.form['UniformityCellShape']
-        MarginalAdhesion = request.form['MarginalAdhesion']
-        SingleEpithelialCellSize = request.form['SingleEpithelialCellSize']
-        BareNuclei = request.form['BareNuclei']
-        BlandChromatin = request.form['BlandChromatin']
-        NormalNucleoli = request.form['NormalNucleoli']
-        Mitoses = request.form['Mitoses']
-        y_pred = [[ClumpThickness, UniformityofCellSize, UniformityCellShape,
-                    MarginalAdhesion, SingleEpithelialCellSize, BareNuclei, BlandChromatin,
-                    NormalNucleoli, Mitoses]]
+        X_values = [float(x) for x in request.form.values()]
+        y_pred = [np.array(X_values)]
         preds = dtc.predict(y_pred)
         benign = "You won't need surgery. Insurance is not much necessary."
         malignant = "Sorry to say, but you'll need surgery. Please claim insurance if needed."
@@ -114,9 +69,7 @@ def insurances():
             consumption = 0
         y_pred = [[age, income, stage, consumption]]
         preds = rfr.predict(y_pred)
-        # preds = str(preds)
-        return render_template('insurance.html', i=preds)
-        
+        return render_template('insurance.html', i=preds)       
     return render_template('insurance.html')
 
 
